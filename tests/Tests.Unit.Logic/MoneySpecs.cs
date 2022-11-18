@@ -41,4 +41,31 @@ public class MoneySpecs
         dollar.Should().NotBe(hundredCents);
         dollar.GetHashCode().Should().NotBe(hundredCents.GetHashCode());
     }
+
+    // ALWAYS test the edge cases.
+    [Theory]
+    [InlineData(-1, 0, 0, 0, 0, 0)]
+    [InlineData(0, -2, 0, 0, 0, 0)]
+    [InlineData(0, 0, -3, 0, 0, 0)]
+    [InlineData(0, 0, 0, -4, 0, 0)]
+    [InlineData(0, 0, 0, 0, -5, 0)]
+    [InlineData(0, 0, 0, 0, 0, -6)]
+    public void Cannot_create_money_with_negative_value(
+        int oneCentCount,
+        int tenCentCount,
+        int quarterCount,
+        int oneDollarCount,
+        int fiveDollarCount,
+        int twentyDollarCount)
+    {
+        var action = () => new Money(
+            oneCentCount,
+            tenCentCount,
+            quarterCount,
+            oneDollarCount,
+            fiveDollarCount,
+            twentyDollarCount);
+
+        action.Should().Throw<InvalidOperationException>();
+    }
 }
