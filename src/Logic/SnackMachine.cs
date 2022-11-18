@@ -1,7 +1,7 @@
 ﻿namespace Logic;
 // sealed class; it is a good practice to give your classes
 // as few priviliges as possible by default
-public sealed class SnackMachine
+public sealed class SnackMachine : Entity
 {
     public Money? MoneyInside { get; private set; }
     public Money? MoneyInTransaction { get; private set; }
