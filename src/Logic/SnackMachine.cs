@@ -6,14 +6,8 @@ using static Logic.Money;
 // as few priviliges as possible by default
 public sealed class SnackMachine : Entity
 {
-    public Money MoneyInside { get; private set; }
-    public Money MoneyInTransaction { get; private set; }
-
-    public SnackMachine()
-    {
-        MoneyInside = None;
-        MoneyInTransaction = None;
-    }
+    public Money MoneyInside { get; private set; } = None;
+    public Money MoneyInTransaction { get; private set; } = None;
 
     public void InsertMoney(Money money)
     {
