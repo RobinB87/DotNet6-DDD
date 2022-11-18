@@ -56,7 +56,7 @@ public sealed class Money : ValueObject<Money>
     /// <summary>
     /// An operator which introduces a 'plus function'
     /// It takes two money instances and creates a new one,
-    /// which consists of all coins and nodes of the original two
+    /// which consists of all coins and notes of the original two
     /// </summary>
     /// <param name="money1"></param>
     /// <param name="money2"></param>

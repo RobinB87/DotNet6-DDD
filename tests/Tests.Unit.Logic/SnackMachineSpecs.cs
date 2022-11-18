@@ -27,4 +27,18 @@ public class SnackMachineSpecs
 
         snackMachine.MoneyInTransaction.Amount.Should().Be(1.01m);
     }
+
+    [Fact]
+    public void Cannot_insert_more_than_one_coin_or_note_at_a_time()
+    {
+        var snackMachine = new SnackMachine();
+        var twoCent = Cent + Cent;
+
+        var action = () =>
+        {
+            snackMachine.InsertMoney(twoCent);
+        };
+
+        action.Should().Throw<InvalidOperationException>();
+    }
 }
