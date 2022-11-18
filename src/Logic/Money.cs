@@ -1,5 +1,5 @@
 ﻿namespace Logic;
-public sealed class Money
+public sealed class Money : ValueObject<Money>
 {
     public int OneCentCount { get; private set; }
     public int TenCentCount { get; private set; }
@@ -43,5 +43,40 @@ public sealed class Money
             money1.TwentyDollarCount + money2.TwentyDollarCount);
 
         return sum;
+    }
+
+    /// <summary>
+    /// Check the equality of each of the properties
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
+    protected override bool EqualsCore(Money other)
+    {
+        return OneCentCount == other.OneCentCount
+            && TenCentCount == other.TenCentCount
+            && QuarterCount == other.QuarterCount
+            && OneDollarCount == other.OneDollarCount
+            && FiveDollarCount == other.FiveDollarCount
+            && TwentyDollarCount == other.TwentyDollarCount;
+    }
+
+    /// <summary>
+    /// All members of the value object should take part in the hashcode generation
+    /// </summary>
+    /// <returns></returns>
+    protected override int GetHashCodeCore()
+    {
+        // The "unchecked" emphasizes to the reader that we fully expect that
+        // multiplying and adding hash codes could overflow, and that this is OK
+        unchecked
+        {
+            int hashCode = OneCentCount;
+            hashCode = (hashCode * 397) ^ TenCentCount;
+            hashCode = (hashCode * 397) ^ QuarterCount;
+            hashCode = (hashCode * 397) ^ OneDollarCount;
+            hashCode = (hashCode * 397) ^ FiveDollarCount;
+            hashCode = (hashCode * 397) ^ TwentyDollarCount;
+            return hashCode;
+        }
     }
 }
