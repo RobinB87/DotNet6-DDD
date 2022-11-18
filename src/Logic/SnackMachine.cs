@@ -11,8 +11,10 @@ public sealed class SnackMachine : Entity
 
     public void InsertMoney(Money money)
     {
+        VerifyIncomingMoneyIsOfAcceptedType(money);
         MoneyInTransaction += money;
     }
+
     public void ReturnMoney()
     {
         // Override existing instance of money with a new one, so immutability is not violated
@@ -22,6 +24,13 @@ public sealed class SnackMachine : Entity
     public void BuySnack()
     {
         MoneyInside += MoneyInTransaction;
-        //MoneyInTransaction = 0;
+        MoneyInTransaction = None;
+    }
+
+    private static void VerifyIncomingMoneyIsOfAcceptedType(Money money)
+    {
+        var coinsAndNotes = new[] { Cent, TenCent, Quarter, Dollar, FiveDollar, TwentyDollar };
+        if (!coinsAndNotes.Contains(money))
+            throw new InvalidOperationException();
     }
 }
