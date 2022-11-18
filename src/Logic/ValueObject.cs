@@ -8,7 +8,7 @@ public abstract class ValueObject<T> where T : ValueObject<T>
     /// the actual work to the abstract EqualsCore method
     /// <param name="obj"></param>
     /// <returns></returns>
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         var valueObject = obj as T;
         if (ReferenceEquals(valueObject, null))

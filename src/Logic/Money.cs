@@ -1,25 +1,20 @@
 ﻿namespace Logic;
 public sealed class Money : ValueObject<Money>
 {
-    public int OneCentCount { get; private set; }
-    public int TenCentCount { get; private set; }
-    public int QuarterCount { get; private set; }
-    public int OneDollarCount { get; private set; }
-    public int FiveDollarCount { get; private set; }
-    public int TwentyDollarCount { get; private set; }
+    public int OneCentCount { get; }
+    public int TenCentCount { get; }
+    public int QuarterCount { get; }
+    public int OneDollarCount { get; }
+    public int FiveDollarCount { get; }
+    public int TwentyDollarCount { get; }
 
-    public decimal Amount
-    {
-        get
-        {
-            return OneCentCount * 0.01m +
-                TenCentCount * 0.10m +
-                QuarterCount * 0.25m +
-                OneDollarCount +
-                FiveDollarCount * 5 +
-                TwentyDollarCount * 20;
-        }
-    }
+    public decimal Amount =>
+        OneCentCount * 0.01m +
+        TenCentCount * 0.10m +
+        QuarterCount * 0.25m +
+        OneDollarCount +
+        FiveDollarCount * 5 +
+        TwentyDollarCount * 20;
 
     public Money(
         int oneCentCount,
