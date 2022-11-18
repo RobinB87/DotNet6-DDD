@@ -6,30 +6,18 @@ public sealed class SnackMachine
     public Money? MoneyInside { get; private set; }
     public Money? MoneyInTransaction { get; private set; }
 
-    public void ReturnMoney()
+    public void InsertMoney(Money money)
     {
-        OneCentCountInTransaction = 0;
-        TenCentCountInTransaction = 0;
-        QuarterCountInTransaction = 0;
-        OneDollarCountInTransaction = 0;
-        FiveDollarCountInTransaction = 0;
-        TwentyDollarCountInTransaction = 0;
+        MoneyInTransaction += money;
+    }
+    public void ReturnMoney(Money money)
+    {
+        //MoneyInTransaction = 0;
     }
 
     public void BuySnack()
     {
-        OneCentCount += OneCentCountInTransaction;
-        TenCentCount += TenCentCountInTransaction;
-        QuarterCount += QuarterCountInTransaction;
-        OneDollarCount += OneDollarCountInTransaction;
-        FiveDollarCount += FiveDollarCountInTransaction;
-        TwentyDollarCount += TwentyDollarCountInTransaction;
-
-        OneCentCountInTransaction = 0;
-        TenCentCountInTransaction = 0;
-        QuarterCountInTransaction = 0;
-        OneDollarCountInTransaction = 0;
-        FiveDollarCountInTransaction = 0;
-        TwentyDollarCountInTransaction = 0;
+        MoneyInside += MoneyInTransaction;
+        //MoneyInTransaction = 0;
     }
 }
