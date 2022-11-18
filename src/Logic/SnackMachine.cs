@@ -3,30 +3,8 @@
 // as few priviliges as possible by default
 public sealed class SnackMachine
 {
-
-
-    public int OneCentCountInTransaction { get; private set; }
-    public int TenCentCountInTransaction { get; private set; }
-    public int QuarterCountInTransaction { get; private set; }
-    public int OneDollarCountInTransaction { get; private set; }
-    public int FiveDollarCountInTransaction { get; private set; }
-    public int TwentyDollarCountInTransaction { get; private set; }
-
-    public void InsertMoney(
-        int oneCentCount,
-        int tenCentCount,
-        int quarterCount,
-        int oneDollarCount,
-        int fiveDollarCount,
-        int twentyDollarCount)
-    {
-        OneCentCountInTransaction += oneCentCount;
-        TenCentCountInTransaction += tenCentCount;
-        QuarterCountInTransaction += quarterCount;
-        OneDollarCountInTransaction += oneDollarCount;
-        FiveDollarCountInTransaction += fiveDollarCount;
-        TwentyDollarCountInTransaction += twentyDollarCount;
-    }
+    public Money? MoneyInside { get; private set; }
+    public Money? MoneyInTransaction { get; private set; }
 
     public void ReturnMoney()
     {
