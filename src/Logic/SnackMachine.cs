@@ -8,8 +8,8 @@ public sealed class SnackMachine : Entity
 
     public SnackMachine()
     {
-        MoneyInside = new Money(0, 0, 0, 0, 0, 0);
-        MoneyInTransaction = new Money(0, 0, 0, 0, 0, 0);
+        MoneyInside = Money.None;
+        MoneyInTransaction = Money.None;
     }
 
     public void InsertMoney(Money money)
@@ -19,7 +19,7 @@ public sealed class SnackMachine : Entity
     public void ReturnMoney()
     {
         // Override existing instance of money with a new one, so immutability is not violated
-        MoneyInTransaction = new Money(0, 0, 0, 0, 0, 0);
+        MoneyInTransaction = Money.None;
     }
 
     public void BuySnack()
