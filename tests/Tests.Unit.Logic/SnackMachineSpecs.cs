@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using Logic;
 
+using static Logic.Money;
+
 namespace Tests.Unit.Logic;
 public class SnackMachineSpecs
 {
@@ -8,7 +10,7 @@ public class SnackMachineSpecs
     public void Return_money_empties_money_in_transaction()
     {
         var snackMachine = new SnackMachine();
-        snackMachine.InsertMoney(Money.Dollar);
+        snackMachine.InsertMoney(Dollar);
 
         snackMachine.ReturnMoney();
 
