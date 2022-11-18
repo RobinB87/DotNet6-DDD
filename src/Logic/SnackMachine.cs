@@ -3,16 +3,23 @@
 // as few priviliges as possible by default
 public sealed class SnackMachine : Entity
 {
-    public Money? MoneyInside { get; private set; }
-    public Money? MoneyInTransaction { get; private set; }
+    public Money MoneyInside { get; private set; }
+    public Money MoneyInTransaction { get; private set; }
+
+    public SnackMachine()
+    {
+        MoneyInside = new Money(0, 0, 0, 0, 0, 0);
+        MoneyInTransaction = new Money(0, 0, 0, 0, 0, 0);
+    }
 
     public void InsertMoney(Money money)
     {
         MoneyInTransaction += money;
     }
-    public void ReturnMoney(Money money)
+    public void ReturnMoney()
     {
-        //MoneyInTransaction = 0;
+        // Override existing instance of money with a new one, so immutability is not violated
+        MoneyInTransaction = new Money(0, 0, 0, 0, 0, 0);
     }
 
     public void BuySnack()
