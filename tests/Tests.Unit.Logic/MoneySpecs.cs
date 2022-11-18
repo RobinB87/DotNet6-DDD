@@ -98,4 +98,35 @@ public class MoneySpecs
 
         money.Amount.Should().Be(expectedAmount);
     }
+
+    [Fact]
+    public void Subtraction_of_two_money_instances_produces_correct_result()
+    {
+        var money1 = new Money(10, 10, 10, 10, 10, 10);
+        var money2 = new Money(1, 2, 3, 4, 5, 6);
+
+        var result = money1 - money2;
+
+        result.OneCentCount.Should().Be(9);
+        result.TenCentCount.Should().Be(8);
+        result.QuarterCount.Should().Be(7);
+        result.OneDollarCount.Should().Be(6);
+        result.FiveDollarCount.Should().Be(5);
+        result.TwentyDollarCount.Should().Be(4);
+    }
+
+    [Fact]
+    public void Cannot_Subtract_more_than_exists()
+    {
+        var money1 = new Money(0, 1, 0, 0, 0, 0);
+        var money2 = new Money(1, 0, 0, 0, 0, 0);
+
+        // It will get in the Money constructor with minus 1 and will throw
+        var action = () =>
+        {
+            var money = money1 - money2;
+        };
+
+        action.Should().Throw<InvalidOperationException>();
+    }
 }
