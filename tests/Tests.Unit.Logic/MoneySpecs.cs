@@ -86,7 +86,7 @@ public class MoneySpecs
         int oneDollarCount,
         int fiveDollarCount,
         int twentyDollarCount,
-        double expectedAmount)
+        decimal expectedAmount)
     {
         var money = new Money(
             oneCentCount,
@@ -96,6 +96,6 @@ public class MoneySpecs
             fiveDollarCount,
             twentyDollarCount);
 
-        money.Amount.Should().Be()
+        money.Amount.Should().Be(expectedAmount);
     }
 }
