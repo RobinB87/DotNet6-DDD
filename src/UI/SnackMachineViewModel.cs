@@ -64,7 +64,7 @@ public class SnackMachineViewModel : ViewModel
 	private void NotifyClient(string message)
 	{
         Message = message;
-        Notify("MoneyInTransaction");
-        Notify("MoneyInside");
+        Notify(nameof(MoneyInTransaction));
+        Notify(nameof(MoneyInside));
     }
 }
