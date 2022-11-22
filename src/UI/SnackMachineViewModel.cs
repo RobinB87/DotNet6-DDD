@@ -25,6 +25,7 @@ public class SnackMachineViewModel : ViewModel
 	public Command InsertDollarCommand { get; private set; }
 	public Command InsertFiveDollarCommand { get; private set; }
 	public Command InsertTwentyDollarCommand { get; private set; }
+	public Command ReturnMoneyCommand { get; private set; }
 
     public SnackMachineViewModel(SnackMachine snackMachine)
 	{
@@ -35,6 +36,7 @@ public class SnackMachineViewModel : ViewModel
         InsertDollarCommand = new Command(() => InsertCent(Money.Dollar));
         InsertFiveDollarCommand = new Command(() => InsertCent(Money.FiveDollar));
         InsertTwentyDollarCommand = new Command(() => InsertCent(Money.TwentyDollar));
+		ReturnMoneyCommand = new Command(() => ReturnMoney());
 	}
 
 	private void InsertCent(Money money)
@@ -43,4 +45,10 @@ public class SnackMachineViewModel : ViewModel
 		Notify("MoneyInTransaction");
 		Message = $"You have inserted: {money}"; 
 	}
+
+	private void ReturnMoney()
+	{
+		_snackMachine.ReturnMoney();
+        Notify("MoneyInTransaction");
+    }
 }
