@@ -19,6 +19,8 @@ public class SnackMachineViewModel : ViewModel
 	}
 
 	public string MoneyInTransaction => _snackMachine.MoneyInTransaction.ToString();
+	public Money MoneyInside => _snackMachine.MoneyInside + _snackMachine.MoneyInTransaction;
+
 	public Command InsertCentCommand { get; private set; }
 	public Command InsertTenCentCommand { get; private set; }
 	public Command InsertQuarterCommand { get; private set; }
@@ -43,12 +45,14 @@ public class SnackMachineViewModel : ViewModel
 	{
 		_snackMachine.InsertMoney(money);
 		Notify("MoneyInTransaction");
-		Message = $"You have inserted: {money}"; 
+		Notify("MoneyInside");
+        Message = $"You have inserted: {money}"; 
 	}
 
 	private void ReturnMoney()
 	{
 		_snackMachine.ReturnMoney();
         Notify("MoneyInTransaction");
+        Notify("MoneyInside");
     }
 }
