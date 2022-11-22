@@ -121,4 +121,11 @@ public sealed class Money : ValueObject<Money>
             return hashCode;
         }
     }
+
+    public override string ToString()
+    {
+        return Amount < 1
+            ? $"¢{Amount * 100:0}"
+            : $"${Amount.ToString("0.00")}";
+    }
 }
