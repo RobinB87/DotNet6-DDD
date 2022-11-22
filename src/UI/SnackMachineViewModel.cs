@@ -28,6 +28,7 @@ public class SnackMachineViewModel : ViewModel
 	public Command InsertFiveDollarCommand { get; private set; }
 	public Command InsertTwentyDollarCommand { get; private set; }
 	public Command ReturnMoneyCommand { get; private set; }
+	public Command BuySnackCommand { get; private set; }
 
     public SnackMachineViewModel(SnackMachine snackMachine)
 	{
@@ -39,7 +40,8 @@ public class SnackMachineViewModel : ViewModel
         InsertFiveDollarCommand = new Command(() => InsertCent(Money.FiveDollar));
         InsertTwentyDollarCommand = new Command(() => InsertCent(Money.TwentyDollar));
 		ReturnMoneyCommand = new Command(() => ReturnMoney());
-	}
+		BuySnackCommand = new Command(() => BuySnack());
+    }
 
 	private void InsertCent(Money money)
 	{
@@ -54,5 +56,13 @@ public class SnackMachineViewModel : ViewModel
 		_snackMachine.ReturnMoney();
         Notify("MoneyInTransaction");
         Notify("MoneyInside");
+    }
+
+	private void BuySnack()
+	{
+		_snackMachine.BuySnack();
+        Notify("MoneyInTransaction");
+        Notify("MoneyInside");
+		Message = "You have bought a snack";
     }
 }
