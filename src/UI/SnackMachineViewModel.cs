@@ -6,6 +6,18 @@ public class SnackMachineViewModel : ViewModel
 {
 	private readonly SnackMachine _snackMachine;
     public override string Caption => "Snack Machine";
+
+	private string _message = string.Empty;
+	public string Message
+	{
+		get { return _message; }
+		private set 
+		{ 
+			_message = value;
+			Notify();
+		}
+	}
+
 	public string MoneyInTransaction => _snackMachine.MoneyInTransaction.ToString();
 	public Command InsertCentCommand { get; private set; }
 	public Command InsertTenCentCommand { get; private set; }
@@ -29,5 +41,6 @@ public class SnackMachineViewModel : ViewModel
 	{
 		_snackMachine.InsertMoney(money);
 		Notify("MoneyInTransaction");
+		Message = $"You have inserted: {money}"; 
 	}
 }
