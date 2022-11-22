@@ -33,36 +33,38 @@ public class SnackMachineViewModel : ViewModel
     public SnackMachineViewModel(SnackMachine snackMachine)
 	{
 		_snackMachine = snackMachine;
-        InsertCentCommand = new Command(() => InsertCent(Money.Cent));
-        InsertTenCentCommand = new Command(() => InsertCent(Money.TenCent));
-        InsertQuarterCommand = new Command(() => InsertCent(Money.Quarter));
-        InsertDollarCommand = new Command(() => InsertCent(Money.Dollar));
-        InsertFiveDollarCommand = new Command(() => InsertCent(Money.FiveDollar));
-        InsertTwentyDollarCommand = new Command(() => InsertCent(Money.TwentyDollar));
+        InsertCentCommand = new Command(() => InsertMoney(Money.Cent));
+        InsertTenCentCommand = new Command(() => InsertMoney(Money.TenCent));
+        InsertQuarterCommand = new Command(() => InsertMoney(Money.Quarter));
+        InsertDollarCommand = new Command(() => InsertMoney(Money.Dollar));
+        InsertFiveDollarCommand = new Command(() => InsertMoney(Money.FiveDollar));
+        InsertTwentyDollarCommand = new Command(() => InsertMoney(Money.TwentyDollar));
 		ReturnMoneyCommand = new Command(() => ReturnMoney());
 		BuySnackCommand = new Command(() => BuySnack());
     }
 
-	private void InsertCent(Money money)
+	private void InsertMoney(Money coinOrNote)
 	{
-		_snackMachine.InsertMoney(money);
-		Notify("MoneyInTransaction");
-		Notify("MoneyInside");
-        Message = $"You have inserted: {money}"; 
+		_snackMachine.InsertMoney(coinOrNote);
+        NotifyClient($"You have inserted: {coinOrNote}");
 	}
 
 	private void ReturnMoney()
 	{
 		_snackMachine.ReturnMoney();
-        Notify("MoneyInTransaction");
-        Notify("MoneyInside");
+        NotifyClient("Money was returned");
     }
 
-	private void BuySnack()
+    private void BuySnack()
 	{
 		_snackMachine.BuySnack();
+		NotifyClient("You have bought a snack");
+    }
+
+	private void NotifyClient(string message)
+	{
+        Message = message;
         Notify("MoneyInTransaction");
         Notify("MoneyInside");
-		Message = "You have bought a snack";
     }
 }
