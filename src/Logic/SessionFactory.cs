@@ -37,8 +37,6 @@ public static class SessionFactory
                             x => x.Not.Nullable()))
                 .Conventions.Add<TableNameConvention>()
                 .Conventions.Add<HiLoConvention>());
-            // Create tables enable ?
-            // .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(true, true)); 
 
         return config.BuildSessionFactory();
     }

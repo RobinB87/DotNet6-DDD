@@ -1,4 +1,5 @@
-﻿using FluentNHibernate.Mapping;
+﻿using FluentNHibernate;
+using FluentNHibernate.Mapping;
 
 namespace Logic;
 public class SnackMachineMap : ClassMap<SnackMachine>
@@ -18,5 +19,7 @@ public class SnackMachineMap : ClassMap<SnackMachine>
             y.Map(x => x.FiveDollarCount);
             y.Map(x => x.TwentyDollarCount);
         });
+
+        HasMany<Slot>(Reveal.Member<SnackMachine>("Slots")).Not.LazyLoad();
     }
 }
