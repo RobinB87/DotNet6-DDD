@@ -5,6 +5,7 @@ using FluentNHibernate.Conventions.AcceptanceCriteria;
 using FluentNHibernate.Conventions.Helpers;
 using FluentNHibernate.Conventions.Instances;
 using NHibernate;
+using NHibernate.Tool.hbm2ddl;
 using System.Reflection;
 
 namespace Logic;
@@ -13,9 +14,9 @@ public static class SessionFactory
     private static ISessionFactory _factory;
     // ISession is like context in EF
     public static ISession OpenSession()
-	{
+    {
         return _factory.OpenSession();
-	}
+    }
 
     public static void Init(string connectionString)
     {
@@ -32,10 +33,12 @@ public static class SessionFactory
                     ForeignKey.EndsWith("ID"),
                     ConventionBuilder.Property
                         .When(criteria => criteria.Expect(
-                            x => x.Nullable, Is.Not.Set), 
+                            x => x.Nullable, Is.Not.Set),
                             x => x.Not.Nullable()))
                 .Conventions.Add<TableNameConvention>()
                 .Conventions.Add<HiLoConvention>());
+            // Create tables enable ?
+            // .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(true, true)); 
 
         return config.BuildSessionFactory();
     }
@@ -54,9 +57,9 @@ public static class SessionFactory
         {
             instance.Column(instance.EntityType.Name + "ID");
             instance.GeneratedBy.HiLo(
-                "[dbo].[Ids]", 
-                "NextHigh", 
-                "9", 
+                "[dbo].[Ids]",
+                "NextHigh",
+                "9",
                 $"EntityName = '{instance.EntityType.Name}'");
         }
     }
