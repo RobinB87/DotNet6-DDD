@@ -1,7 +1,7 @@
 ﻿namespace Logic;
 public abstract class Entity
 {
-    public long Id { get; private set; }
+    public virtual long Id { get; private set; }
 
     /// <summary>
     /// Equals method, can only accept one null

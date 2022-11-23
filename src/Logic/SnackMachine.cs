@@ -4,24 +4,24 @@ using static Logic.Money;
 
 // sealed class; it is a good practice to give your classes
 // as few priviliges as possible by default
-public sealed class SnackMachine : Entity
+public class SnackMachine : Entity
 {
-    public Money MoneyInside { get; private set; } = None;
-    public Money MoneyInTransaction { get; private set; } = None;
+    public virtual Money MoneyInside { get; protected set; } = None;
+    public virtual Money MoneyInTransaction { get; protected set; } = None;
 
-    public void InsertMoney(Money money)
+    public virtual void InsertMoney(Money money)
     {
         VerifyIncomingMoneyIsOfAcceptedType(money);
         MoneyInTransaction += money;
     }
 
-    public void ReturnMoney()
+    public virtual void ReturnMoney()
     {
         // Override existing instance of money with a new one, so immutability is not violated
         MoneyInTransaction = None;
     }
 
-    public void BuySnack()
+    public virtual void BuySnack()
     {
         MoneyInside += MoneyInTransaction;
         MoneyInTransaction = None;
