@@ -8,6 +8,7 @@ public class SnackMachine : Entity
 {
     public virtual Money MoneyInside { get; protected set; } = None;
     public virtual Money MoneyInTransaction { get; protected set; } = None;
+    public virtual IList<Slot> Slots { get; protected set; } = new List<Slot>();
 
     public virtual void InsertMoney(Money money)
     {
@@ -25,6 +26,15 @@ public class SnackMachine : Entity
     {
         MoneyInside += MoneyInTransaction;
         MoneyInTransaction = None;
+    }
+
+    public virtual void LoadSnacks(
+        int position, Snack snack, int quantity, decimal price)
+    {
+        var slot = Slots.Single(x => x.Position == position);
+        slot.Snack = snack;
+        slot.Quantity = quantity;
+        slot.Price = price;
     }
 
     private static void VerifyIncomingMoneyIsOfAcceptedType(Money money)

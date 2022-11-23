@@ -46,14 +46,14 @@ public class SnackMachineSpecs
     public void BuySnack_trades_inserted_money_for_a_snack()
     {
         var snackMachine = new SnackMachine();
-        snackMachine.LoadSnacks();
-        snackMachine.InsertMoney(Dollar);
+        snackMachine.LoadSnacks(1, new Snack("Some snack"), 10, 1m);
         snackMachine.InsertMoney(Dollar);
 
-        snackMachine.BuySnack();
+        snackMachine.BuySnack(1);
 
         snackMachine.MoneyInTransaction.Should().Be(None);
         snackMachine.MoneyInside.Amount.Should().Be(2m);
-        // validate the number of snacks
+        snackMachine.Slots.Single(x => x.Position == 1)
+            .Quantity.Should().Be(9);
     }
 }
