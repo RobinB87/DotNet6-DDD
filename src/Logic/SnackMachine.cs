@@ -37,6 +37,9 @@ public class SnackMachine : AggregateRoot
     public virtual void BuySnack(int position)
     {
         var slot = GetSlot(position);
+        if (slot.SnackPile.Price > MoneyInTransaction.Amount)
+            throw new InvalidOperationException();
+
         slot.SnackPile = slot.SnackPile.SubtractOne();
 
         MoneyInside += MoneyInTransaction;

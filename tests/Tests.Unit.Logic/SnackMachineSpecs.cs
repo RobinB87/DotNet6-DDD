@@ -53,4 +53,26 @@ public class SnackMachineSpecs
         snackMachine.MoneyInside.Amount.Should().Be(1m);
         snackMachine.GetSnackPile(1).Quantity.Should().Be(9);
     }
+
+    [Fact]
+    public void Cannot_make_purchase_when_there_are_no_snacks()
+    {
+        var snackMachine = new SnackMachine();
+
+        var action = () => snackMachine.BuySnack(1);
+
+        action.Should().Throw<InvalidOperationException>();
+    }
+
+    [Fact]
+    public void Cannot_make_purchase_when_not_enough_money_inserted()
+    {
+        var snackMachine = new SnackMachine();
+        snackMachine.LoadSnacks(1, new SnackPile(new Snack("snack"), 1, 2m));
+        snackMachine.InsertMoney(Dollar);
+
+        var action = () => snackMachine.BuySnack(1);
+
+        action.Should().Throw<InvalidOperationException>();
+    }
 }
