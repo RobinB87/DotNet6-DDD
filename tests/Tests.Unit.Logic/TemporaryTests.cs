@@ -8,7 +8,7 @@ public class TemporaryTests
     public void Test()
     {
         SessionFactory.Init(@"Server=.;Database=DDD.In.Practice;Trusted_Connection=true");
-        
+
         using (ISession session = SessionFactory.OpenSession())
         {
             long id = 1;
