@@ -4,7 +4,7 @@ using static Logic.Money;
 
 // sealed class; it is a good practice to give your classes
 // as few priviliges as possible by default
-public class SnackMachine : Entity
+public class SnackMachine : AggregateRoot
 {
     public virtual Money MoneyInside { get; protected set; }
     public virtual Money MoneyInTransaction { get; protected set; }
@@ -16,9 +16,9 @@ public class SnackMachine : Entity
         MoneyInTransaction = None;
         Slots = new List<Slot>
         {
-            new Slot(this, 1, null, 0, 0m),
-            new Slot(this, 2, null, 0, 0m),
-            new Slot(this, 3, null, 0, 0m)
+            new Slot(this, 1),
+            new Slot(this, 2),
+            new Slot(this, 3)
         };
     }
 
@@ -36,26 +36,30 @@ public class SnackMachine : Entity
 
     public virtual void BuySnack(int position)
     {
-        var slot = Slots.Single(x => x.Position == position);
-        slot.Quantity--;
+        var slot = GetSlot(position);
+        slot.SnackPile = slot.SnackPile.SubtractOne();
 
         MoneyInside += MoneyInTransaction;
         MoneyInTransaction = None;
     }
 
     public virtual void LoadSnacks(
-        int position, Snack snack, int quantity, decimal price)
+        int position, SnackPile snackPile)
     {
-        var slot = Slots.Single(x => x.Position == position);
-        slot.Snack = snack;
-        slot.Quantity = quantity;
-        slot.Price = price;
+        var slot = GetSlot(position);
+        slot.SnackPile = snackPile;
     }
 
-    private static void VerifyIncomingMoneyIsOfAcceptedType(Money money)
+    public virtual SnackPile? GetSnackPile(int position) =>
+        GetSlot(position).SnackPile;
+
+    private void VerifyIncomingMoneyIsOfAcceptedType(Money money)
     {
         var coinsAndNotes = new[] { Cent, TenCent, Quarter, Dollar, FiveDollar, TwentyDollar };
         if (!coinsAndNotes.Contains(money))
             throw new InvalidOperationException();
     }
+
+    private Slot GetSlot(int position) =>
+        Slots.Single(x => x.Position == position);
 }
