@@ -32,7 +32,8 @@ public static class SessionFactory
                     ForeignKey.EndsWith("ID"),
                     ConventionBuilder.Property
                         .When(criteria => criteria.Expect(
-                            x => x.Nullable, Is.Not.Set), x => x.Not.Nullable()))
+                            x => x.Nullable, Is.Not.Set), 
+                            x => x.Not.Nullable()))
                 .Conventions.Add<TableNameConvention>()
                 .Conventions.Add<HiLoConvention>());
 
