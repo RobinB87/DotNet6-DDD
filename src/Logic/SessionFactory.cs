@@ -8,10 +8,10 @@ using NHibernate;
 using System.Reflection;
 
 namespace Logic;
-
 public static class SessionFactory
 {
     private static ISessionFactory _factory;
+    // ISession is like context in EF
     public static ISession OpenSession()
 	{
         return _factory.OpenSession();

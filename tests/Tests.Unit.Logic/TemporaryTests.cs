@@ -7,7 +7,7 @@ public class TemporaryTests
     [Fact]
     public void Test()
     {
-        SessionFactory.Init(@"Server=.;Database=DDD.In.Practice;Trusted_Connection=true");
+        SessionFactory.Init(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DDD.In.Practice;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
         using (ISession session = SessionFactory.OpenSession())
         {
