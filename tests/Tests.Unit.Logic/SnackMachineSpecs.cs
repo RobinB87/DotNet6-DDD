@@ -75,4 +75,20 @@ public class SnackMachineSpecs
 
         action.Should().Throw<InvalidOperationException>();
     }
+
+    [Fact]
+    public void Snack_machine_returns_money_with_highest_denomination_first()
+    {
+        var snackMachine = new SnackMachine();
+        snackMachine.LoadMoney(Dollar);
+
+        snackMachine.InsertMoney(Quarter);
+        snackMachine.InsertMoney(Quarter);
+        snackMachine.InsertMoney(Quarter);
+        snackMachine.InsertMoney(Quarter);
+        snackMachine.ReturnMoney();
+
+        snackMachine.MoneyInside.QuarterCount.Should().Be(4);
+        snackMachine.MoneyInside.OneDollarCount.Should().Be(0);
+    }
 }
