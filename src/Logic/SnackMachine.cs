@@ -6,9 +6,21 @@ using static Logic.Money;
 // as few priviliges as possible by default
 public class SnackMachine : Entity
 {
-    public virtual Money MoneyInside { get; protected set; } = None;
-    public virtual Money MoneyInTransaction { get; protected set; } = None;
-    public virtual IList<Slot> Slots { get; protected set; } = new List<Slot>();
+    public virtual Money MoneyInside { get; protected set; }
+    public virtual Money MoneyInTransaction { get; protected set; }
+    public virtual IList<Slot> Slots { get; protected set; }
+
+    public SnackMachine()
+    {
+        MoneyInside = None;
+        MoneyInTransaction = None;
+        Slots = new List<Slot>
+        {
+            new Slot(this, 1, null, 0, 0m),
+            new Slot(this, 2, null, 0, 0m),
+            new Slot(this, 3, null, 0, 0m)
+        };
+    }
 
     public virtual void InsertMoney(Money money)
     {
@@ -22,8 +34,11 @@ public class SnackMachine : Entity
         MoneyInTransaction = None;
     }
 
-    public virtual void BuySnack()
+    public virtual void BuySnack(int position)
     {
+        var slot = Slots.Single(x => x.Position == position);
+        slot.Quantity--;
+
         MoneyInside += MoneyInTransaction;
         MoneyInTransaction = None;
     }

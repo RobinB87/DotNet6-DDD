@@ -52,7 +52,7 @@ public class SnackMachineSpecs
         snackMachine.BuySnack(1);
 
         snackMachine.MoneyInTransaction.Should().Be(None);
-        snackMachine.MoneyInside.Amount.Should().Be(2m);
+        snackMachine.MoneyInside.Amount.Should().Be(1m);
         snackMachine.Slots.Single(x => x.Position == 1)
             .Quantity.Should().Be(9);
     }
