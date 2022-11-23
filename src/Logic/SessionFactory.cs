@@ -9,10 +9,10 @@ using System.Reflection;
 
 namespace Logic;
 
-internal static class SessionFactory
+public static class SessionFactory
 {
     private static ISessionFactory _factory;
-    internal static ISession OpenSession()
+    public static ISession OpenSession()
 	{
         return _factory.OpenSession();
 	}

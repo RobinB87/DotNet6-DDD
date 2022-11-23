@@ -1,4 +1,6 @@
-﻿namespace Logic;
+﻿using NHibernate.Proxy;
+
+namespace Logic;
 public abstract class Entity
 {
     public virtual long Id { get; private set; }
@@ -22,7 +24,7 @@ public abstract class Entity
             return true;
 
         // if the type is not the same, they cannot be equal
-        if (GetType() != other.GetType())
+        if (GetRealType() != other.GetRealType())
             return false;
 
         // if any id is zero, it means the id was not yet set
@@ -67,5 +69,8 @@ public abstract class Entity
     /// </summary>
     /// <returns></returns>
     public override int GetHashCode()
-        => (GetType().ToString() + Id).GetHashCode();
+        => (GetRealType().ToString() + Id).GetHashCode();
+
+    private Type GetRealType() => 
+        NHibernateProxyHelper.GetClassWithoutInitializingProxy(this);
 }
