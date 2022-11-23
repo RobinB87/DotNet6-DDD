@@ -20,7 +20,7 @@ public class SnackMachineViewModel : ViewModel
     }
 
     public string MoneyInTransaction => _snackMachine.MoneyInTransaction.ToString();
-    public Money MoneyInside => _snackMachine.MoneyInside + _snackMachine.MoneyInTransaction;
+    public Money MoneyInside => _snackMachine.MoneyInside;
 
     public Command InsertCentCommand { get; private set; }
     public Command InsertTenCentCommand { get; private set; }
@@ -29,7 +29,7 @@ public class SnackMachineViewModel : ViewModel
     public Command InsertFiveDollarCommand { get; private set; }
     public Command InsertTwentyDollarCommand { get; private set; }
     public Command ReturnMoneyCommand { get; private set; }
-    public Command BuySnackCommand { get; private set; }
+    public Command<string> BuySnackCommand { get; private set; }
 
     public SnackMachineViewModel(SnackMachine snackMachine)
     {
@@ -41,7 +41,7 @@ public class SnackMachineViewModel : ViewModel
         InsertFiveDollarCommand = new Command(() => InsertMoney(Money.FiveDollar));
         InsertTwentyDollarCommand = new Command(() => InsertMoney(Money.TwentyDollar));
         ReturnMoneyCommand = new Command(() => ReturnMoney());
-        BuySnackCommand = new Command(() => BuySnack());
+        BuySnackCommand = new Command<string>(BuySnack);
     }
 
     private void InsertMoney(Money coinOrNote)
@@ -56,9 +56,10 @@ public class SnackMachineViewModel : ViewModel
         NotifyClient("Money was returned");
     }
 
-    private void BuySnack()
+    private void BuySnack(string position)
     {
-        _snackMachine.BuySnack();
+        int positionInt = int.Parse(position);
+        _snackMachine.BuySnack(positionInt);
         NotifyClient("You have bought a snack");
 
         // Transaction is not required as there is a single operation anyway,

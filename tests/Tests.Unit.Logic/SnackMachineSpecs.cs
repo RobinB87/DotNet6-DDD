@@ -11,7 +11,7 @@ public class SnackMachineSpecs
 
         snackMachine.ReturnMoney();
 
-        snackMachine.MoneyInTransaction.Amount.Should().Be(0m);
+        snackMachine.MoneyInTransaction.Should().Be(0m);
     }
 
     [Fact]
@@ -22,7 +22,7 @@ public class SnackMachineSpecs
         snackMachine.InsertMoney(Cent);
         snackMachine.InsertMoney(Dollar);
 
-        snackMachine.MoneyInTransaction.Amount.Should().Be(1.01m);
+        snackMachine.MoneyInTransaction.Should().Be(1.01m);
     }
 
     [Fact]
@@ -49,7 +49,7 @@ public class SnackMachineSpecs
 
         snackMachine.BuySnack(1);
 
-        snackMachine.MoneyInTransaction.Should().Be(None);
+        snackMachine.MoneyInTransaction.Should().Be(0);
         snackMachine.MoneyInside.Amount.Should().Be(1m);
         snackMachine.GetSnackPile(1).Quantity.Should().Be(9);
     }

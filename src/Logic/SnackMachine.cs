@@ -7,13 +7,13 @@ using static Logic.Money;
 public class SnackMachine : AggregateRoot
 {
     public virtual Money MoneyInside { get; protected set; }
-    public virtual Money MoneyInTransaction { get; protected set; }
+    public virtual decimal MoneyInTransaction { get; protected set; }
     public virtual IList<Slot> Slots { get; protected set; }
 
     public SnackMachine()
     {
         MoneyInside = None;
-        MoneyInTransaction = None;
+        MoneyInTransaction = 0;
         Slots = new List<Slot>
         {
             new Slot(this, 1),
@@ -25,25 +25,25 @@ public class SnackMachine : AggregateRoot
     public virtual void InsertMoney(Money money)
     {
         VerifyIncomingMoneyIsOfAcceptedType(money);
-        MoneyInTransaction += money;
+        MoneyInTransaction += money.Amount;
+        MoneyInside += money;
     }
 
     public virtual void ReturnMoney()
     {
         // Override existing instance of money with a new one, so immutability is not violated
-        MoneyInTransaction = None;
+        MoneyInTransaction = 0;
     }
 
     public virtual void BuySnack(int position)
     {
         var slot = GetSlot(position);
-        if (slot.SnackPile.Price > MoneyInTransaction.Amount)
+        if (slot.SnackPile.Price > MoneyInTransaction)
             throw new InvalidOperationException();
 
         slot.SnackPile = slot.SnackPile.SubtractOne();
 
-        MoneyInside += MoneyInTransaction;
-        MoneyInTransaction = None;
+        MoneyInTransaction = 0;
     }
 
     public virtual void LoadSnacks(
@@ -55,6 +55,9 @@ public class SnackMachine : AggregateRoot
 
     public virtual SnackPile? GetSnackPile(int position) =>
         GetSlot(position).SnackPile;
+
+    public virtual void LoadMoney(Money money) =>
+        MoneyInside += money;
 
     private void VerifyIncomingMoneyIsOfAcceptedType(Money money)
     {
