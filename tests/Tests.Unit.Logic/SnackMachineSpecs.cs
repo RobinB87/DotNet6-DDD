@@ -43,10 +43,10 @@ public class SnackMachineSpecs
     }
 
     [Fact]
-    public void Money_in_transaction_goes_to_money_inside_after_purchase()
+    public void BuySnack_trades_inserted_money_for_a_snack()
     {
         var snackMachine = new SnackMachine();
-
+        snackMachine.LoadSnacks();
         snackMachine.InsertMoney(Dollar);
         snackMachine.InsertMoney(Dollar);
 
@@ -54,5 +54,6 @@ public class SnackMachineSpecs
 
         snackMachine.MoneyInTransaction.Should().Be(None);
         snackMachine.MoneyInside.Amount.Should().Be(2m);
+        // validate the number of snacks
     }
 }
