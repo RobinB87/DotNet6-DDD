@@ -31,6 +31,9 @@ public class SnackMachine : AggregateRoot
 
     public virtual void ReturnMoney()
     {
+        var moneyToReturn = MoneyInside.Allocate(MoneyInTransaction);
+        MoneyInside -= moneyToReturn;
+
         // Override existing instance of money with a new one, so immutability is not violated
         MoneyInTransaction = 0;
     }
