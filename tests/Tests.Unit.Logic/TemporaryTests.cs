@@ -1,5 +1,4 @@
-﻿//using Logic;
-//using NHibernate;
+﻿//using NHibernate;
 
 //namespace Tests.Unit.Logic;
 //public class TemporaryTests

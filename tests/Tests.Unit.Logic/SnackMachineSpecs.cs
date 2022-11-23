@@ -1,7 +1,4 @@
-﻿using FluentAssertions;
-using Logic;
-
-using static Logic.Money;
+﻿using static Logic.Money;
 
 namespace Tests.Unit.Logic;
 public class SnackMachineSpecs
