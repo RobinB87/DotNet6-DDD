@@ -91,4 +91,18 @@ public class SnackMachineSpecs
         snackMachine.MoneyInside.QuarterCount.Should().Be(4);
         snackMachine.MoneyInside.OneDollarCount.Should().Be(0);
     }
+
+    [Fact]
+    public void After_purchase_change_is_returned()
+    {
+        var snackMachine = new SnackMachine();
+        snackMachine.LoadSnacks(1, new SnackPile(new Snack("snack"), 1, 0.5m));
+        snackMachine.LoadMoney(TenCent * 10); // new multiplier operator
+
+        snackMachine.InsertMoney(Dollar);
+        snackMachine.BuySnack(1);
+
+        snackMachine.MoneyInside.Amount.Should().Be(1.5m);
+        snackMachine.MoneyInTransaction.Should().Be(0);
+    }
 }

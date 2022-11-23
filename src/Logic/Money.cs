@@ -89,6 +89,19 @@ public sealed class Money : ValueObject<Money>
         return result;
     }
 
+    public static Money operator *(Money money1, int multiplier)
+    {
+        var sum = new Money(
+            money1.OneCentCount * multiplier,
+            money1.TenCentCount * multiplier,
+            money1.QuarterCount * multiplier,
+            money1.OneDollarCount * multiplier,
+            money1.FiveDollarCount * multiplier,
+            money1.TwentyDollarCount * multiplier);
+
+        return sum;
+    }
+
     /// <summary>
     /// Check the equality of each of the properties
     /// </summary>

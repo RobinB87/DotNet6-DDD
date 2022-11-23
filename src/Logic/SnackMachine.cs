@@ -46,6 +46,8 @@ public class SnackMachine : AggregateRoot
 
         slot.SnackPile = slot.SnackPile.SubtractOne();
 
+        var change = MoneyInside.Allocate(MoneyInTransaction - slot.SnackPile.Price);
+        MoneyInside -= change;
         MoneyInTransaction = 0;
     }
 
