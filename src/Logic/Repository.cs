@@ -19,6 +19,8 @@ public abstract class Repository<T>
 
     public void Save(T aggregateRoot)
     {
+        // Transaction is not required as there is a single operation anyway,
+        // but it is a good habit when adding to db
         using (ISession session = SessionFactory.OpenSession())
         using (ITransaction transaction = session.BeginTransaction())
         {

@@ -8,6 +8,7 @@ namespace UI;
 public class SnackMachineViewModel : ViewModel
 {
     private readonly SnackMachine _snackMachine;
+    private readonly SnackMachineRepository _snackMachineRepository;
 
     public override string Caption => "Snack Machine";
     public string MoneyInTransaction => _snackMachine.MoneyInTransaction.ToString();
@@ -41,6 +42,8 @@ public class SnackMachineViewModel : ViewModel
     public SnackMachineViewModel(SnackMachine snackMachine)
     {
         _snackMachine = snackMachine;
+        _snackMachineRepository = new SnackMachineRepository();
+
         InsertCentCommand = new Command(() => InsertMoney(Money.Cent));
         InsertTenCentCommand = new Command(() => InsertMoney(Money.TenCent));
         InsertQuarterCommand = new Command(() => InsertMoney(Money.Quarter));
@@ -67,16 +70,8 @@ public class SnackMachineViewModel : ViewModel
     {
         int positionInt = int.Parse(position);
         _snackMachine.BuySnack(positionInt);
+        _snackMachineRepository.Save(_snackMachine);
         NotifyClient("You have bought a snack");
-
-        // Transaction is not required as there is a single operation anyway,
-        // but it is a good habit when adding to db
-        using (ISession session = SessionFactory.OpenSession())
-        using (ITransaction transaction = session.BeginTransaction())
-        {
-            session.SaveOrUpdate(_snackMachine);
-            transaction.Commit();
-        }
     }
 
     private void NotifyClient(string message)
@@ -84,5 +79,6 @@ public class SnackMachineViewModel : ViewModel
         Message = message;
         Notify(nameof(MoneyInTransaction));
         Notify(nameof(MoneyInside));
+        Notify(nameof(Piles));
     }
 }
