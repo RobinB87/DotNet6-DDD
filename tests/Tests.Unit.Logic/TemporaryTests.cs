@@ -1,4 +1,6 @@
-﻿namespace Tests.Unit.Logic;
+﻿using static Logic.Money;
+
+namespace Tests.Unit.Logic;
 public class TemporaryTests
 {
     [Fact]
@@ -9,5 +11,10 @@ public class TemporaryTests
         var repository = new SnackMachineRepository();
         var snackMachine = repository.GetById(1);
 
+        snackMachine.InsertMoney(Dollar);
+        snackMachine.InsertMoney(Dollar);
+        snackMachine.InsertMoney(Dollar);
+        snackMachine.BuySnack(1);
+        repository.Save(snackMachine);
     }
 }
