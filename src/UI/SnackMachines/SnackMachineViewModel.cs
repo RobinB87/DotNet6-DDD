@@ -4,7 +4,7 @@ using Logic.SnackMachines;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UI;
+namespace UI.SnackMachines;
 public class SnackMachineViewModel : ViewModel
 {
     private readonly SnackMachine _snackMachine;

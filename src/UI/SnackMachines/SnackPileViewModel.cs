@@ -3,7 +3,7 @@ using System;
 using System.Windows;
 using System.Windows.Media;
 
-namespace UI;
+namespace UI.SnackMachines;
 public class SnackPileViewModel
 {
     private readonly SnackPile _snackPile;
