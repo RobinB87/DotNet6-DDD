@@ -67,6 +67,11 @@ public class SnackMachine : AggregateRoot
     public virtual void LoadMoney(Money money) =>
         MoneyInside += money;
 
+    // Should always contain 3 and only 3 snackpiles, hence IReadOnlyList
+    // to show immutability
+    public virtual IReadOnlyList<SnackPile> GetAllSnackPiles() =>
+        Slots.OrderBy(x => x.Position).Select(x => x.SnackPile).ToList();
+
     private void VerifyIncomingMoneyIsOfAcceptedType(Money money)
     {
         var coinsAndNotes = new[] { Cent, TenCent, Quarter, Dollar, FiveDollar, TwentyDollar };

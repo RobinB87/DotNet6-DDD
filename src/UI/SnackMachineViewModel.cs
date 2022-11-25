@@ -1,12 +1,22 @@
 ﻿using DDD.In.Practice.UI.Common;
 using Logic;
 using NHibernate;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UI;
 public class SnackMachineViewModel : ViewModel
 {
     private readonly SnackMachine _snackMachine;
+
     public override string Caption => "Snack Machine";
+    public string MoneyInTransaction => _snackMachine.MoneyInTransaction.ToString();
+    public Money MoneyInside => _snackMachine.MoneyInside;
+
+    public IReadOnlyList<SnackPileViewModel> Piles =>
+        _snackMachine.GetAllSnackPiles()
+        .Select(x => new SnackPileViewModel(x))
+        .ToList();
 
     private string _message = string.Empty;
     public string Message
@@ -18,9 +28,6 @@ public class SnackMachineViewModel : ViewModel
             Notify();
         }
     }
-
-    public string MoneyInTransaction => _snackMachine.MoneyInTransaction.ToString();
-    public Money MoneyInside => _snackMachine.MoneyInside;
 
     public Command InsertCentCommand { get; private set; }
     public Command InsertTenCentCommand { get; private set; }
