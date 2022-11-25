@@ -38,8 +38,28 @@ public class SnackMachine : AggregateRoot
         MoneyInTransaction = 0;
     }
 
+    // Do not return a string in the BuySnack method as this violates the CQS principle
+    // Therefor we use an extra method which does validation
+    public virtual string CanBuySnack(int position)
+    {
+        var snackPile = GetSnackPile(position);
+        if (snackPile.Quantity == 0)
+            return "The snack pile is empty";
+
+        if (MoneyInTransaction < snackPile.Price)
+            return "Not enough money";
+
+        if (!MoneyInside.CanAllocate(MoneyInTransaction - snackPile.Price))
+            return "Not enough change";
+
+        return string.Empty;
+    }
+
     public virtual void BuySnack(int position)
     {
+        if (CanBuySnack(position) != string.Empty)
+            throw new InvalidOperationException();
+
         var slot = GetSlot(position);
         if (slot.SnackPile.Price > MoneyInTransaction)
             throw new InvalidOperationException();

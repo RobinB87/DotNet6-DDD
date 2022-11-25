@@ -1,6 +1,5 @@
 ﻿using DDD.In.Practice.UI.Common;
 using Logic;
-using NHibernate;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -68,7 +67,14 @@ public class SnackMachineViewModel : ViewModel
 
     private void BuySnack(string position)
     {
-        int positionInt = int.Parse(position);
+        var positionInt = int.Parse(position);
+        var error = _snackMachine.CanBuySnack(positionInt);
+        if (error != string.Empty)
+        {
+            NotifyClient(error);
+            return;
+        }
+
         _snackMachine.BuySnack(positionInt);
         _snackMachineRepository.Save(_snackMachine);
         NotifyClient("You have bought a snack");

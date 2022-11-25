@@ -144,7 +144,21 @@ public sealed class Money : ValueObject<Money>
             : $"${Amount.ToString("0.00")}";
     }
 
+    public bool CanAllocate(decimal amount)
+    {
+        var money = AllocateCore(amount);
+        return money.Amount == amount;
+    }
+
     public Money Allocate(decimal amount)
+    {
+        if (!CanAllocate(amount))
+            throw new InvalidOperationException();
+
+        return AllocateCore(amount);
+    }
+
+    public Money AllocateCore(decimal amount)
     {
         var twentyDollarCount = Math.Min((int)(amount / 20), TwentyDollarCount);
         amount = amount - twentyDollarCount * 20;
