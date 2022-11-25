@@ -1,11 +1,19 @@
 ﻿namespace Logic;
 public class Snack : AggregateRoot
 {
-    public virtual string Name { get; protected set; } = string.Empty;
+	// Use static readonly Snacks as these are reference data
+	// Predefined data, change is relatively rare
+	// The constructor is then made private
+	public static readonly Snack Chocolate = new Snack(1, "Chocolate");
+	public static readonly Snack Soda = new Snack(2, "Soda");
+	public static readonly Snack Gum = new Snack(3, "Gum");
+
+    public virtual string Name { get; } = string.Empty;
 
 	protected Snack() { }
-	public Snack(string name) : this()
+    private Snack(long id, string name) : this()
 	{
+		Id = id;
 		Name = name;
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using static Logic.Money;
+using static Logic.Snack;
 
 namespace Tests.Unit.Logic;
 public class SnackMachineSpecs
@@ -43,8 +44,7 @@ public class SnackMachineSpecs
     public void BuySnack_trades_inserted_money_for_a_snack()
     {
         var snackMachine = new SnackMachine();
-        snackMachine.LoadSnacks(1, new SnackPile(
-            new Snack("Some snack"), 10, 1m));
+        snackMachine.LoadSnacks(1, new SnackPile(Chocolate, 10, 1m));
         snackMachine.InsertMoney(Dollar);
 
         snackMachine.BuySnack(1);
@@ -68,7 +68,7 @@ public class SnackMachineSpecs
     public void Cannot_make_purchase_when_not_enough_money_inserted()
     {
         var snackMachine = new SnackMachine();
-        snackMachine.LoadSnacks(1, new SnackPile(new Snack("snack"), 1, 2m));
+        snackMachine.LoadSnacks(1, new SnackPile(Chocolate, 1, 2m));
         snackMachine.InsertMoney(Dollar);
 
         var action = () => snackMachine.BuySnack(1);
@@ -96,7 +96,7 @@ public class SnackMachineSpecs
     public void After_purchase_change_is_returned()
     {
         var snackMachine = new SnackMachine();
-        snackMachine.LoadSnacks(1, new SnackPile(new Snack("snack"), 1, 0.5m));
+        snackMachine.LoadSnacks(1, new SnackPile(Chocolate, 1, 0.5m));
         snackMachine.LoadMoney(TenCent * 10); // new multiplier operator
 
         snackMachine.InsertMoney(Dollar);
@@ -110,7 +110,7 @@ public class SnackMachineSpecs
     public void Cannot_buy_snack_if_machine_has_not_enough_change()
     {
         var snackMachine = new SnackMachine();
-        snackMachine.LoadSnacks(1, new SnackPile(new Snack("snack"), 1, 0.5m));
+        snackMachine.LoadSnacks(1, new SnackPile(Chocolate, 1, 0.5m));
         snackMachine.InsertMoney(Dollar);
         
         var action = () => snackMachine.BuySnack(1);
