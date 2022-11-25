@@ -20,6 +20,7 @@ public class SnackMachineMap : ClassMap<SnackMachine>
             y.Map(x => x.TwentyDollarCount);
         });
 
+        // Reveal, as the Slot member is protected and cannot be accessed directly
         HasMany<Slot>(Reveal.Member<SnackMachine>("Slots")).Not.LazyLoad();
     }
 }

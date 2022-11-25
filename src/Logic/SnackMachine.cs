@@ -8,7 +8,7 @@ public class SnackMachine : AggregateRoot
 {
     public virtual Money MoneyInside { get; protected set; }
     public virtual decimal MoneyInTransaction { get; protected set; }
-    public virtual IList<Slot> Slots { get; protected set; }
+    protected virtual IList<Slot> Slots { get; set; }
 
     public SnackMachine()
     {
