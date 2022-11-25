@@ -21,6 +21,10 @@ public class SnackMachineMap : ClassMap<SnackMachine>
         });
 
         // Reveal, as the Slot member is protected and cannot be accessed directly
-        HasMany<Slot>(Reveal.Member<SnackMachine>("Slots")).Not.LazyLoad();
+        // Cascade.SaveUpdate is used to ensure that sub entities are updated
+        // when the parent entity is updated
+        HasMany<Slot>(Reveal.Member<SnackMachine>("Slots"))
+            .Cascade.SaveUpdate()
+            .Not.LazyLoad();
     }
 }
