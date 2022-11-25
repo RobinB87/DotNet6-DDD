@@ -1,4 +1,4 @@
-﻿using Logic;
+﻿using Logic.Utils;
 
 namespace DDD.In.Practice.UI;
 public partial class App

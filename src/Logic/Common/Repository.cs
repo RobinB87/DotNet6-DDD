@@ -1,6 +1,7 @@
-﻿using NHibernate;
+﻿using Logic.Utils;
+using NHibernate;
 
-namespace Logic;
+namespace Logic.Common;
 public abstract class Repository<T>
         where T : AggregateRoot
 {

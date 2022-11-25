@@ -8,7 +8,7 @@ using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using System.Reflection;
 
-namespace Logic;
+namespace Logic.Utils;
 public static class SessionFactory
 {
     private static ISessionFactory _factory;

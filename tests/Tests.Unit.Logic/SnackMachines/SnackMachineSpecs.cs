@@ -1,7 +1,8 @@
-﻿using static Logic.Money;
-using static Logic.Snack;
+﻿using Logic.SnackMachines;
+using static Logic.SharedKernel.Money;
+using static Logic.SnackMachines.Snack;
 
-namespace Tests.Unit.Logic;
+namespace Tests.Unit.Logic.SnackMachines;
 public class SnackMachineSpecs
 {
     [Fact]
@@ -112,7 +113,7 @@ public class SnackMachineSpecs
         var snackMachine = new SnackMachine();
         snackMachine.LoadSnacks(1, new SnackPile(Chocolate, 1, 0.5m));
         snackMachine.InsertMoney(Dollar);
-        
+
         var action = () => snackMachine.BuySnack(1);
 
         action.Should().Throw<InvalidOperationException>();

@@ -1,6 +1,9 @@
-﻿namespace Logic;
+﻿using Logic.SharedKernel;
 
-using static Logic.Money;
+namespace Logic.SnackMachines;
+
+using Logic.Common;
+using static Logic.SharedKernel.Money;
 
 // sealed class; it is a good practice to give your classes
 // as few priviliges as possible by default

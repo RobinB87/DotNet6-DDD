@@ -26,4 +26,8 @@
 		<ProjectReference Include="..\..\src\Logic\Logic.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Atms\" />
+	</ItemGroup>
+
 </Project>

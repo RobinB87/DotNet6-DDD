@@ -1,4 +1,6 @@
-﻿namespace Logic;
+﻿using Logic.Common;
+
+namespace Logic.SnackMachines;
 // Can be marked as sealed as only virtual members of entities
 // need to be non-sealed for NHibernate 
 public sealed class SnackPile : ValueObject<SnackPile>
@@ -10,7 +12,7 @@ public sealed class SnackPile : ValueObject<SnackPile>
     public decimal Price { get; }
 
     private SnackPile() { }
-    public SnackPile(Snack? snack, int quantity, decimal price) 
+    public SnackPile(Snack? snack, int quantity, decimal price)
         : this()
     {
         if (quantity < 0)
@@ -38,8 +40,8 @@ public sealed class SnackPile : ValueObject<SnackPile>
         unchecked
         {
             var hashCode = Snack.GetHashCode();
-            hashCode = (hashCode * 397) ^ Quantity;
-            hashCode = (hashCode * 397) ^ Price.GetHashCode();
+            hashCode = hashCode * 397 ^ Quantity;
+            hashCode = hashCode * 397 ^ Price.GetHashCode();
             return hashCode;
         }
     }

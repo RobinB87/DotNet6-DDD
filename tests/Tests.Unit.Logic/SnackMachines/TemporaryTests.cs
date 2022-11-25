@@ -1,6 +1,8 @@
-﻿using static Logic.Money;
+﻿using Logic.SnackMachines;
+using Logic.Utils;
+using static Logic.SharedKernel.Money;
 
-namespace Tests.Unit.Logic;
+namespace Tests.Unit.Logic.SnackMachines;
 public class TemporaryTests
 {
     [Fact]

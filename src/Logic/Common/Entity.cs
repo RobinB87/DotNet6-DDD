@@ -1,6 +1,6 @@
 ﻿using NHibernate.Proxy;
 
-namespace Logic;
+namespace Logic.Common;
 public abstract class Entity
 {
     public virtual long Id { get; protected set; }
@@ -59,7 +59,7 @@ public abstract class Entity
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
-    public static bool operator !=(Entity a, Entity b) 
+    public static bool operator !=(Entity a, Entity b)
         => !(a == b);
 
     /// <summary>
@@ -71,6 +71,6 @@ public abstract class Entity
     public override int GetHashCode()
         => (GetRealType().ToString() + Id).GetHashCode();
 
-    private Type GetRealType() => 
+    private Type GetRealType() =>
         NHibernateProxyHelper.GetClassWithoutInitializingProxy(this);
 }

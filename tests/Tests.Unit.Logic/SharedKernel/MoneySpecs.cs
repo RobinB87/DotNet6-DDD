@@ -1,4 +1,6 @@
-namespace Tests.Unit.Logic;
+using Logic.SharedKernel;
+
+namespace Tests.Unit.Logic.SharedKernel;
 public class MoneySpecs
 {
     [Fact]

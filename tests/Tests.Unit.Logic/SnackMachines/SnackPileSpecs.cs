@@ -1,6 +1,7 @@
-﻿using static Logic.Snack;
+﻿using Logic.SnackMachines;
+using static Logic.SnackMachines.Snack;
 
-namespace Tests.Unit.Logic;
+namespace Tests.Unit.Logic.SnackMachines;
 public class SnackPileSpecs
 {
     [Fact]

@@ -1,5 +1,6 @@
 ﻿using DDD.In.Practice.UI.Common;
-using Logic;
+using Logic.SharedKernel;
+using Logic.SnackMachines;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -1,4 +1,6 @@
-﻿namespace Logic;
+﻿using Logic.Common;
+
+namespace Logic.SharedKernel;
 public sealed class Money : ValueObject<Money>
 {
     public static readonly Money None = new Money(0, 0, 0, 0, 0, 0);
@@ -128,11 +130,11 @@ public sealed class Money : ValueObject<Money>
         unchecked
         {
             int hashCode = OneCentCount;
-            hashCode = (hashCode * 397) ^ TenCentCount;
-            hashCode = (hashCode * 397) ^ QuarterCount;
-            hashCode = (hashCode * 397) ^ OneDollarCount;
-            hashCode = (hashCode * 397) ^ FiveDollarCount;
-            hashCode = (hashCode * 397) ^ TwentyDollarCount;
+            hashCode = hashCode * 397 ^ TenCentCount;
+            hashCode = hashCode * 397 ^ QuarterCount;
+            hashCode = hashCode * 397 ^ OneDollarCount;
+            hashCode = hashCode * 397 ^ FiveDollarCount;
+            hashCode = hashCode * 397 ^ TwentyDollarCount;
             return hashCode;
         }
     }

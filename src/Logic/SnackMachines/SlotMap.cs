@@ -1,6 +1,6 @@
 ﻿using FluentNHibernate.Mapping;
 
-namespace Logic;
+namespace Logic.SnackMachines;
 public class SlotMap : ClassMap<Slot>
 {
     public SlotMap()
