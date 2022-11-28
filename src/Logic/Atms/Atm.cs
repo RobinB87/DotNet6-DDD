@@ -1,10 +1,14 @@
 ﻿using Logic.Common;
 using Logic.SharedKernel;
 
+using static Logic.SharedKernel.Money;
+
 namespace Logic.Atms;
 public class Atm : AggregateRoot
 {
-    public virtual Money MoneyInside { get; protected set; } = Money.None;
+    private const decimal CommissionRate = 0.01m;
+
+    public virtual Money MoneyInside { get; protected set; } = None;
     public virtual decimal MoneyCharged { get; protected set; }
 
     public virtual void TakeMoney(decimal amount)
@@ -12,7 +16,7 @@ public class Atm : AggregateRoot
         var output = MoneyInside.Allocate(amount);
         MoneyInside -= output;
 
-        var amountWithCommission = amount + amount * 0.01m;
+        var amountWithCommission = amount + amount * CommissionRate;
         MoneyCharged += amountWithCommission;
     }
 
