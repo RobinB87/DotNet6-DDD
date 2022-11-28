@@ -1,8 +1,9 @@
-﻿using Logic.SnackMachines;
+﻿using Logic.Management;
+using Logic.SnackMachines;
 using Logic.Utils;
 using static Logic.SharedKernel.Money;
 
-namespace Tests.Unit.Logic.SnackMachines;
+namespace Tests.Unit.Logic;
 public class TemporaryTests
 {
     [Fact]
@@ -18,5 +19,13 @@ public class TemporaryTests
         snackMachine.InsertMoney(Dollar);
         snackMachine.BuySnack(1);
         repository.Save(snackMachine);
+    }
+
+    [Fact]
+    public void Test_HeadOffice()
+    {
+        SessionFactory.Init(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DDD.In.Practice;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        HeadOfficeInstance.Init();
+        var office = HeadOfficeInstance.Instance;
     }
 }
