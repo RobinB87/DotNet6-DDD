@@ -31,6 +31,8 @@ public class Atm : AggregateRoot
 
         var amountWithCommission = CalculateAmountWithCommission(amount);
         MoneyCharged += amountWithCommission;
+
+        DomainEvents.Raise(new BalanceChangedEvent(amountWithCommission));
     }
 
     public virtual void LoadMoney(Money money)

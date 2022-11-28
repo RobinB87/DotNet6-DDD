@@ -1,4 +1,5 @@
 ﻿using Logic.Atms;
+using Logic.Common;
 using Logic.SharedKernel;
 
 using static Logic.SharedKernel.Money;
@@ -38,5 +39,20 @@ public class AtmSpecs
         atm.TakeMoney(1.1m);
 
         atm.MoneyCharged.Should().Be(1.12m);
+    }
+
+    [Fact]
+    public void Take_money_raises_an_event()
+    {
+        var atm = new Atm();
+        atm.LoadMoney(Dollar);
+
+        BalanceChangedEvent balanceChangeEvent = null;
+        DomainEvents.Register<BalanceChangedEvent>(ev => balanceChangeEvent = ev);
+
+        atm.TakeMoney(1m);
+
+        balanceChangeEvent.Should().NotBeNull();
+        balanceChangeEvent.Delta.Should().Be(1.01m);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Logic.Management;
+﻿using Logic.Common;
+using Logic.Management;
 
 namespace Logic.Utils;
 public static class Initer
@@ -7,5 +8,6 @@ public static class Initer
     {
         SessionFactory.Init(connectionString);
         HeadOfficeInstance.Init();
+        DomainEvents.Init();
     }
 }
