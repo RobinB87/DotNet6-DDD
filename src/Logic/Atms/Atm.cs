@@ -11,8 +11,21 @@ public class Atm : AggregateRoot
     public virtual Money MoneyInside { get; protected set; } = None;
     public virtual decimal MoneyCharged { get; protected set; }
 
+    public virtual string CanTakeMoney(decimal amount)
+    {
+        if (amount <= 0m) return "Invalid amount";
+        if (MoneyInside.Amount < amount) return "Not enough money";
+        if (!MoneyInside.CanAllocate(amount))
+            return "Not enough change";
+
+        return string.Empty;
+    }
+
     public virtual void TakeMoney(decimal amount)
     {
+        if (CanTakeMoney(amount) != string.Empty)
+                throw new InvalidOperationException();
+
         var output = MoneyInside.Allocate(amount);
         MoneyInside -= output;
 
