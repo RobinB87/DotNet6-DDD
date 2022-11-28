@@ -21,6 +21,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Page Remove="SnackMachines\SnackMachineViewModel.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\Logic\Logic.csproj" />
 	</ItemGroup>
 
@@ -55,10 +59,7 @@
 		<Resource Include="Images\Soda.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Atms\" />
+		<Resource Include="SnackMachines\SnackMachineViewModel.xaml" />
 	</ItemGroup>
 
 </Project>
