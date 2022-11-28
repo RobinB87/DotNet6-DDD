@@ -1,5 +1,5 @@
 ﻿using Logic.SnackMachines;
-using UI;
+using UI.SnackMachines;
 
 namespace DDD.In.Practice.UI.Common;
 public class MainViewModel : ViewModel
