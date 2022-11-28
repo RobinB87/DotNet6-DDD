@@ -1,6 +1,4 @@
 ﻿using Logic.Atms;
-using Logic.Common;
-using Logic.SharedKernel;
 
 using static Logic.SharedKernel.Money;
 
@@ -47,12 +45,20 @@ public class AtmSpecs
         var atm = new Atm();
         atm.LoadMoney(Dollar);
 
-        BalanceChangedEvent balanceChangeEvent = null;
-        DomainEvents.Register<BalanceChangedEvent>(ev => balanceChangeEvent = ev);
-
         atm.TakeMoney(1m);
 
-        balanceChangeEvent.Should().NotBeNull();
-        balanceChangeEvent.Delta.Should().Be(1.01m);
+        atm.ShouldContainBalanceChangedEvent(1.01m);
+    }
+}
+
+internal static class AtmExtensions
+{
+    public static void ShouldContainBalanceChangedEvent(this Atm atm, decimal delta)
+    {
+        BalanceChangedEvent domainEvent = (BalanceChangedEvent)atm.DomainEvents
+            .SingleOrDefault(x => x.GetType() == typeof(BalanceChangedEvent));
+
+        domainEvent.Should().NotBeNull();
+        domainEvent.Delta.Should().Be(delta);
     }
 }
